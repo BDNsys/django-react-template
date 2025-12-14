@@ -1,40 +1,22 @@
-import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import ProtectedRoute from './components/ProtectedRoute';
-import Toast from './components/ui/Toast';
-import { clearTokens } from './utils/token';
-
-function Logout() {
-  clearTokens();
-  return <Navigate to="/login" />;
-}
-
-function RegisterAndLogout() {
-  clearTokens();
-  return <Register />;
-}
+import About from './pages/About';
+import Dashboard from './pages/Dashboard';
+import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Toast />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<RegisterAndLogout />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="app">
+      <Navbar />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 
